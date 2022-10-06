@@ -6,7 +6,7 @@ const Contacts = ({ contacts, deleteContact }) => {
     return (
       <div className={s.wrap}>
         <img
-          src="https://i.redd.it/od2zyr2letm21.png"
+          src="https://www.memesmonkey.com/images/memesmonkey/d6/d6bbe7c94ae7a84640e192c1652ab582.jpeg"
           alt="smile"
           width="300"
         />
