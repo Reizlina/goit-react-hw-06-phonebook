@@ -1,7 +1,14 @@
-import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
+import { find } from 'redux/store';
 import s from './SearchContact.module.css';
 
-function SearchContact({ findContact }) {
+function SearchContact() {
+  const dispatch = useDispatch();
+
+  const findContact = e => {
+    dispatch(find(e.target.value));
+  };
+
   return (
     <div className={s.wrap}>
       <input
@@ -16,7 +23,3 @@ function SearchContact({ findContact }) {
 }
 
 export default SearchContact;
-
-SearchContact.propTypes = {
-  findContact: PropTypes.func.isRequired,
-};

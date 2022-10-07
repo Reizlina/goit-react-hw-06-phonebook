@@ -1,8 +1,25 @@
-import PropTypes from 'prop-types';
+import { useSelector, useDispatch } from 'react-redux';
+import { remove } from 'redux/store';
+
 import s from './Contacts.module.css';
 
-const Contacts = ({ contacts, deleteContact }) => {
-  if (!contacts.length) {
+const Contacts = () => {
+  const dispatch = useDispatch();
+  const contactsArr = useSelector(state => state.contacts.contacts);
+  const filter = useSelector(state => state.filter);
+
+  const filterContact = () => {
+    if (!filter.filter) {
+      return contactsArr;
+    }
+    return contactsArr.filter(({ name }) => {
+      return name.toLowerCase().includes(filter.filter.toLowerCase());
+    });
+  };
+
+  const resultArr = filterContact();
+
+  if (!resultArr.length) {
     return (
       <div className={s.wrap}>
         <img
@@ -15,18 +32,12 @@ const Contacts = ({ contacts, deleteContact }) => {
   } else {
     return (
       <ul className={s.list}>
-        {contacts.map(({ name, number, id }) => (
+        {resultArr.map(({ name, number, id }) => (
           <li key={id} className={s.item}>
             <p>
               {name}: {number}
             </p>
-
-            <button
-              className={s.button}
-              onClick={() => {
-                deleteContact(id);
-              }}
-            >
+            <button className={s.button} onClick={() => dispatch(remove(id))}>
               Delete contact
             </button>
           </li>
@@ -37,14 +48,3 @@ const Contacts = ({ contacts, deleteContact }) => {
 };
 
 export default Contacts;
-
-Contacts.propTypes = {
-  contacts: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      number: PropTypes.string.isRequired,
-    })
-  ),
-  deleteContact: PropTypes.func.isRequired,
-};
