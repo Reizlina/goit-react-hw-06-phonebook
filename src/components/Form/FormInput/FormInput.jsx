@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { add } from '../../../redux/store';
+import { add } from '../../../redux/slice';
 
 import Notiflix from 'notiflix';
 import s from './FormInput.module.css';
@@ -28,7 +28,7 @@ export default function FormInput() {
       form.name.value = '';
       return;
     }
-    dispatch(add(contactName, contactNumber));
+    dispatch(add({ name: contactName, number: contactNumber }));
     form.reset();
   };
 

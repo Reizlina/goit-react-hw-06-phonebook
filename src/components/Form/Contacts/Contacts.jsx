@@ -1,19 +1,18 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { remove } from 'redux/store';
+import { remove } from 'redux/slice';
 
 import s from './Contacts.module.css';
 
 const Contacts = () => {
   const dispatch = useDispatch();
-  const contactsArr = useSelector(state => state.contacts.contacts);
-  const filter = useSelector(state => state.filter);
+  const { contacts, filter } = useSelector(state => state.contacts);
 
   const filterContact = () => {
-    if (!filter.filter) {
-      return contactsArr;
+    if (!filter) {
+      return contacts;
     }
-    return contactsArr.filter(({ name }) => {
-      return name.toLowerCase().includes(filter.filter.toLowerCase());
+    return contacts.filter(({ name }) => {
+      return name.toLowerCase().includes(filter.toLowerCase());
     });
   };
 

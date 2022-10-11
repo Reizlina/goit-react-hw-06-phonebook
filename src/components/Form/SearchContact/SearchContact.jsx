@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { find } from 'redux/store';
+import { find } from 'redux/slice';
 import s from './SearchContact.module.css';
 
 function SearchContact() {
